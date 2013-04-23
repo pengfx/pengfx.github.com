@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git | My Blog]]></title>
+  <link href="http://pengfx.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://pengfx.github.io/"/>
+  <updated>2013-04-23T13:56:51+08:00</updated>
+  <id>http://pengfx.github.io/</id>
+  <author>
+    <name><![CDATA[Peng Feixiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[git]]></title>
+    <link href="http://pengfx.github.io/blog/2013/04/23/git/"/>
+    <updated>2013-04-23T13:55:00+08:00</updated>
+    <id>http://pengfx.github.io/blog/2013/04/23/git</id>
+    <content type="html"><![CDATA[<h1>git 用法简单整理</h1>
+
+<h2>创建 git 仓库</h2>
+
+<h3>1. 初始化 git 仓库</h3>
+
+<pre><code>mkdir project # 创建项目目录
+cd project # 进入到项目目录
+git init # 初始化 git 仓库。此命令会在当前目录新建一个 .git 目录，用于存储 git 仓库的相关信息
+</code></pre>
+
+<h3>2. 初始化提交</h3>
+
+<pre><code>touch README
+git add . # 将当前目录添加到 git 仓库中， 使用 git add -A 则是添加所有改动的文档
+git commit -m "Initial commit"
+git remote add origin git@github.com:pengfx/repo.git # 设置仓库
+</code></pre>
+
+<h3>3. 修补提交（修补最近一次的提交而不创建新的提交）</h3>
+
+<pre><code>git commit --amend -m "commit message."
+</code></pre>
+
+<h3>4. 提交冲突时可以合并后再推送</h3>
+
+<pre><code>git pull # 获取远程版本库提交与本地提交进行合并
+git push # 提交
+</code></pre>
+
+<h2>使用别人的仓库</h2>
+
+<pre><code>git clone http://path/to/git.git # clone 的内容会放在当前目录下的新目录
+</code></pre>
+
+<h2>将代码从本地回传到仓库</h2>
+
+<pre><code>git push -u origin master
+</code></pre>
+
+<h2>使用 git status 查看文件状态</h2>
+
+<pre><code>git status
+</code></pre>
+
+<h2>查看提交日志</h2>
+
+<pre><code>git log # 查看提交信息
+git log --pretty=oneline # 以整洁的单行形式显示提交信息
+git log --stat # 查看提交信息及更新的文件
+</code></pre>
+
+<h2>Git 分支</h2>
+
+<pre><code>git branch # 查看分支
+git branch 6.x-1.x # 添加分支 6.x-1.x
+git branch checkout master # 切换到主分支
+git branch -d 6.x-1.x # 删除分支 6.x-1.x
+git push origin :branchname # 删除远端分支
+</code></pre>
+
+<h2>Git 标签</h2>
+
+<pre><code>git tag # 查看分支
+git tag 6.x-1.0 # 添加标签 6.x-1.0
+git show 6.x-1.0 # 查看标签 6.x-1.0 的信息
+git tag -a 6.x-1.0 965e066 # 为之前提交的信息记录 965e066 加上标签
+git push --tags # 提交时带上标签信息
+git push origin :/refs/tags/tagname # 删除远端标签
+</code></pre>
+
+<h2>从 git 仓库中导出项目</h2>
+
+<pre><code>git archive --format tar --output /path/to/file.tar master # 将 master 以 tar 格式打包到指定文件
+</code></pre>
+
+<h2>使用 Git 的一些基本守则</h2>
+
+<p>当要commit/提交patch时：</p>
+
+<ul>
+<li><p>使用 git diff --check 检查行尾有没有多余的空白</p></li>
+<li><p>每个 commit 只改一件事情。如果一个文档有多个变更，使用 git add --patch 只选择文档中的部分变更进入 stage
+写清楚 commit message</p></li>
+</ul>
+
+
+<p>参考<a href="http://lugir.com/git-basic.html">lugir.com</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
