@@ -1,0 +1,204 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>draft-korhonen-dmm-prefix-properties-03 - My Blog</title>
+    <meta name="author" content="Peng Feixiang">
+    
+	<meta name="description" content="IPv6 Prefix Mobility Management Properties draft-korhonen-dmm-prefix-properties-03.txt 这篇规范定义并扩展IPv6邻居发现协议的前缀信息选项，扩展其标志位来描述与前缀相关的移动管理性质。
+这篇draft更新了[ &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="My Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        Peng Feixiang
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Draft-korhonen-dmm-prefix-properties-03</h2>
+	<div class="entry-content"><h1>IPv6 Prefix Mobility Management Properties</h1>
+
+<h3><a href="http://tools.ietf.org/html/draft-korhonen-dmm-prefix-properties-03">draft-korhonen-dmm-prefix-properties-03.txt</a></h3>
+
+<pre><code>这篇规范定义并扩展IPv6邻居发现协议的前缀信息选项，扩展其标志位来描述与前缀相关的移动管理性质。
+这篇draft更新了[RFC4861](http://tools.ietf.org/rfc/rfc4861.txt)。
+</code></pre>
+
+<hr />
+
+<h2>Background and Motivation</h2>
+
+<ul>
+<li>非最优路由</li>
+<li>过多的隧道，为了维护移动性相关绑定而增加的信令</li>
+<li>集中式的MAG下流量聚合</li>
+</ul>
+
+
+<p>In general, it is observed that most applications do not need IP level mobility, and work just
+fine with &#8220;temporary&#8221; IP addresses that come and go. However, IP mobility still has its virtues making the applications unaware of mobility, and certain wireless mobile networking architecture make extensive use of network based IP mobility.</p>
+
+<p>在许多情况下，这可能会导致MN有多个地址被使用，但是其中一些提供了移动性，而另一些没有提供。不得不提供方法来让终端主机区分是否是提供了移动性的地址，还是一些生存期很短并且只能在一个受限的拓扑域使用的地址。</p>
+
+<p><strong>这篇draft提供了IPv6地址管理的扩展以及源地址的选择，这样终端主机（以及它的应用）就能够为它们的需求选择一个合适的地址。</strong></p>
+
+<h2>Option Formats</h2>
+
+<pre><code>'M' 长为1位的标志，描述了前缀的移动性，其性质被定义为：
+0 这个前缀没有相关的基于网络的移动性，这个前缀以RFC4861中所提供的方式进行处理。
+1 这个前缀提供了基于网络的移动性并且可能保持前缀未改变的有效时间。
+
+
+'S' 长为1位的标志，它能够提供与使用前缀相关的安全性质的提示。
+
+'Class' 长达14位的前缀分类，这个前缀分类加上了移动性与安全性的补充信息。0被保留，该值没有描述前缀的任何信息。对于未知的分类都将其值置为0。
+
+我们将'M'位、'S'位以及'class’的结合称之为前缀性质。
+</code></pre>
+
+<h2>Host Considerations</h2>
+
+<blockquote><p>[I-D.liu-dmm-mobility-api]</p></blockquote>
+
+<h4>内部数据结构</h4>
+
+<p>主机内部数据结构需要被前缀性质信息扩展，这些信息与已学习的前缀及配置地址相关联。关于这一点是如何完成是需要由具体的主机来指定的。一个应用怎样才能够知道或询问到一个地址或一个前缀的移动性也是由具体主机的实现来决定的。一个可能性是通过socket API的扩展来提供这样的信息。（关于这点可以看 <a href="http://tools.ietf.org/id/draft-korhonen-dmm-prefix-properties-03.txt">I-D.liu-dmm-mobility-api</a> 中的讨论）。其它的可能性包括ioctl（）的扩展以及NetLink的扩展。</p>
+
+<h4>默认地址选择</h4>
+
+<p>“前缀性质”提供的信息只能用来作为一种提示。它并不会自动的影响已经存在了的东西<a href="http://tools.ietf.org/rfc/rfc6724.txt">RFC6724</a>，除了稍后将要描述的&#8217;M&#8217;标志位之外。对于主机的策略表来说，一个详细的规则不得不被一个应用或者一些守护进程插入。在可选情况下，一个应用能够通过在<a href="http://tools.ietf.org/id/draft-korhonen-dmm-prefix-properties-03.txt">I-D.liu-dmm-mobility-api</a>中讨论的socket API的扩展来表达地址移动性的优先级，这就意味着库文件或中间件不得不修改策略表或算法。</p>
+
+<blockquote><p>The ’M’ flag defines the prefix preference for an IP stack that
+understands the extensions defined in this specification. The IP
+stack SHOULD use the following preferences to supersede [RFC6724]
+Source Address Selection Rule 8 when selecting a default source
+address among multiple choices and an application has not explicitly
+indicate what kind of source address it prefers:</p>
+
+<ul>
+<li><p>0 Default preference.</p></li>
+<li><p>1 Low preference.</p></li>
+</ul>
+</blockquote>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    Peng Feixiang
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>
