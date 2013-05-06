@@ -1,0 +1,249 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>draft-ma-dmm-armip-00 - My Blog</title>
+    <meta name="author" content="Peng Feixiang">
+    
+	<meta name="description" content="An AR-level solution support for Distributed Mobility Management draft-ma-dmm-armip-00 1. Introduction 这篇文档以主机的方式描述了MAAR和AAA对IP移动性管理的支持。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="My Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        Peng Feixiang
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Draft-ma-dmm-armip-00</h2>
+	<div class="entry-content"><h1>An AR-level solution support for Distributed Mobility Management</h1>
+
+<h3><a href="https://tools.ietf.org/html/draft-ma-dmm-armip-00">draft-ma-dmm-armip-00</a></h3>
+
+<hr />
+
+<h2>1.  Introduction</h2>
+
+<p>这篇文档以主机的方式描述了MAAR和AAA对IP移动性管理的支持。这能够解决移动实体对第一次连接到网络和随后切换之间的区分这一问题。本文件严格遵守两个原则。第一个是，MN（移动节点）的移动对CN（核心网络）是透明的。另一个是MN（移动节点）不参与任何和移动性相关的信令传输。</p>
+
+<h2>2.  Terminology</h2>
+
+<ul>
+<li>MAAR(Mobility anchor and Access Router)</li>
+<li>AMAAR (Accessing MAAR).指当前MN连接到的MAAR.每个ALMN必须为当前注册过的移动节点建立并维护两个绑定的列表。一个是内部绑定列表，另一个是外部绑定列表。每一个AMAAR都为新用户配置IPv6地址。因此AMAAR代表每一个移动节点执行移动性管理。每个AMAAR负责检测移动节点的运动和接入链路，并且用于绑定注册的初始化。</li>
+<li>FMAAR (Forwarding MAAR).指被MN以前访问过的MAAR，仍有active flow。MN可以具有一个或多个FMAAR。</li>
+<li>AAA (Authentication, Authorization and Accounting). AAA服务器记录用户的静态和动态信息，而动态信息包括该MN当前注册的MAAR的地址信息。</li>
+<li><p>DBU/DBA (Distributed BU/BA).一个MAAR发送DBU/DBA消息给另一个MAAR来建立相应的绑定列表。在本文中，有两种DBU/DBA信息。一个是pDBU/pDBA消息，另一个是的fDBU/ fDBA消息。</p></li>
+<li><p>pDBU/pDBA.pDBU消息是通过移动节点的AMAAR发送给PMAAR,目的是在移动节点的AMAAR和PMAAR之间建立绑定。这个消息包括了AMAAR的地址。收到pDBU消息后，PMAAR给AMAAR发送一个pDBA消息进行答复，此消息包括FMAAR的地址和由FMAAR分配的MN的地址。fDBU/fDBA.fDBA消息由移动节点的AMAAR发送给FMAAR（不包括PMAAR），目的是在移动节点的AMAAR和FMAAR(不包括PMAAR)之间建立绑定。这个消息包括AMAAR的地址。收到fDBU消息后，FMAAR会给AMAAR发送一个fDBA消息进行答复。</p></li>
+</ul>
+
+
+<h2>3.  MAAR Operation</h2>
+
+<h4>关键操作</h4>
+
+<ul>
+<li>AMAAR MUST send diameter request message to the AAA after detecting the MN&#8217;s movement to the access link.AAA能够区分MN是第一次连接，还是切换后的连接。</li>
+<li>MAAR 维护两个绑定列表，内部绑定列表和外部的绑定列表。内部列表里绑定FMAAR分配的MN地址和MN的FMAAR的地址；内部绑定列表里绑定AMAAR分配的MN的地址和FMAAR分配的此MN的地址。</li>
+<li>每个FMAAR必须为每个之前注册过的MN维护一个绑定列表。这张列表存储了由FMAAR分配的MN的地址的绑定和此MN的AMAAR的地址。</li>
+<li>AMAAR和PMAAR建立双向隧道转发属于MN的所有数据流量。（地址绑定——AMAAR从AAA那获取PMAAR地址，AMAAR向PMAAR发送pDBU）</li>
+</ul>
+
+
+<h2>4.  Description of the solution</h2>
+
+<p>分布式移动管理方法的目的是克服传统的集中式移动管理的限制，通过使移动锚点更接近MN.遵循这一理念，我们建议，中央锚移动到网络的边缘，被部署在所述移动节点的接入路由器。也就是说，提供MN IP连通性的第一个元素也就是这些MN的移动管理者。</p>
+
+<pre><code>    +-----+     +------+   +------+       +------+          +----+
+    |  MN |     | MAAR1|   | MAAR2|       | MAAR3|          | AAA|
+    +-----+     +------+   +------+       +------+          +----+
+       |           |           |             |                 |
+       |-----------1.RS(HoA1,HoA2)----------&gt;|                 |
+       |           |           |             |----2.request---&gt;|
+       |           |           |             |&lt;---3.response---|
+       |&lt;----------4.RA(HoA3)--------------- |                 |
+       |           |           |             |                 |
+       |           |           |&lt;--5.pDBU ---|                 |
+       |           |           |--6. pDBA --&gt;|                 |
+       |           |&lt;--------7.fDBU ---------|                 |
+       |           |---------8.fDBA --------&gt;|                 |
+       |           |                         |                 |
+
+
+
+                 Figure 1:Signaling of MN handover
+</code></pre>
+
+<ol>
+<li>MN从MAAR1，MAAR2 切换到MAAR3，MN发送一个包含HoA1和HoA2的消息给MAAR3。</li>
+<li>MAAR3发送diameter请求信息给AAA</li>
+<li>AAA有MAAR2的地址信息。AAA发送包含MAAR2的diameter答复信息，然后AAA更新包括MAAR3地址信息在内的MN的动态信息。</li>
+<li>MAAR3分配给MN另一个IPv6地址（HoA3）。同时，MAAR3建立并维护存储HoA1和HoA3，HoA2和HoA3绑定的外部绑定列表。</li>
+<li>与此同时，MAAR3发送包含MAAR3地址的pDBU信息给MAAR2.</li>
+<li>现在MAAR2有两个绑定列表。一个是内部绑定列表，另一个是外部绑定列表。第一个存储MAAR1的地址和HoA1。第二个存储HoA1和HoA1的绑定。在收到pDBU信息之后，MAAR2发送包括内部绑定列表、HoA2和MAAR2的地址在内的pDBA信息。之后，MAAR2用一个存储了HoA2和MAAR3地址的绑定列表替换这两个绑定列表。</li>
+<li>在收到pDBA信息后，MAAR3建立并维护这个存储了HoA1和MAAR1的地址绑定、HoA2和MAAR2的地址绑定的内部绑定列表。MAAR3发送包含MAAR3地址的fDBU信息给MAAR1。</li>
+<li>在收到fDBU信息后，MAAR1回复一个fDBA信息，并且更新之前存储HoA1和MAAR2的地址的绑定列表。这个列表现在存储了HoA1和MAAR3的地址。</li>
+</ol>
+
+
+<h2>5.  Forwarding Considerations</h2>
+
+<p>在收到有MN发送的数据包后，AMAAR将会检查数据包的源地址。如果这个地址是由AMAAR分配的，AMAAR就会根据包的目的地址将包转发给CN。如果地址不是由AMAAR分配的，AMAAR就会根据源地址搜索内部绑定列表，然后找到相应的FMAAR的地址。然后，AMAAR封装这些包到相应的FMAAR。</p>
+
+<pre><code>    _______         _______          _______
+   |       |       |       |        |       |
+   |  CN1  |       |  CN2  |        |  CN3  |
+   |_______|       |_______|        |_______|
+       '               *  Flow#2         .
+Flow#1 '               *                 | Flow#3
+       '  ..... '''''''*''''''''''''..... .
+     ..'''             *                 '''..
+   .'  '            IP * network         .   '.
+   :   '               *                 |    :
+    '..'           +-------+             . ..'
+       '''.......  |       |    ........'''
+       '           | MAAR2 |\            .
+       '           |       | \           |
+       '           |       |* \          .
+       '           +-------+\* \         |
+ +-------+                   \* \ + ------+
+ |       |                    \*  |       |
+ | MAAR1 |------------------------| MAAR3 |
+ |       |''''''''''''''''''''''''|       |
+ |       |------------------------|       |
+ +-------+                        +-------+
+                                     ' * |
+                             Flow#1  ' * . Flow#3
+                                     ' * |
+   +-----+                   Flow#2 +-----+
+   | MN  | ----------move---------&gt; | MN  |
+   +-----+                          +-----+
+
+
+              Figure 2:The transmission of data packets
+</code></pre>
+
+<h2>6.  Message Formats</h2>
+
+<p>略</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    Peng Feixiang
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

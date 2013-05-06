@@ -1,0 +1,290 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>draft-luo-dmm-with-ipv6-prefix-properties-00 - My Blog</title>
+    <meta name="author" content="Peng Feixiang">
+    
+	<meta name="description" content="Distributed Mobility Management Approaches with IPv6 Prefix Properties draft-luo-dmm-with-ipv6-prefix-properties-00 为了支持一个更分布的模型， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="My Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        Peng Feixiang
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Draft-luo-dmm-with-ipv6-prefix-properties-00</h2>
+	<div class="entry-content"><h1>Distributed Mobility Management Approaches with IPv6 Prefix Properties</h1>
+
+<h3><a href="http://tools.ietf.org/html/draft-luo-dmm-with-ipv6-prefix-properties-00">draft-luo-dmm-with-ipv6-prefix-properties-00</a></h3>
+
+<p>为了支持一个更分布的模型，本文扩展了现有的基于PMIP的移动性管理协议，并通过引入两个新的逻辑功能来实现分布式锚定和定位管理。鉴于MN可能并不总是需要移动性支持，即需要应用全局性前缀和其他的网络资源，本草案支持该选项以此来补充IPv6前缀源地址选择提示（即IPv6邻居发现协议和它的前缀信息选项）的扩展属性，实现了UE可以根据其服务/应用的移动性支持需求来选择IPv6的前缀。当MN支持扩展的前缀属性功能时，该草案允许ＭＮ可以根据 I-D.korhonen-dmm-prefix-properties 里描述的机制来选择合适的前缀。一旦确定了IPv6前缀，其余的ＤＭＭ机制则与I-D.luo-dmm-pmip-based-dmm-approach 类似。</p>
+
+<hr />
+
+<h2>Solution Overview</h2>
+
+<p>两个新的逻辑功能:</p>
+
+<ul>
+<li>位置管理功能（LMF）， 用来维护IP地址与MN位置之间的匹配</li>
+<li>分布式定位功能（DAF）用来对MN的第一跳路由器提供本地定位支持，并在 I-D.luo-dmm-pmip-based-dmm-approach 第七部分中进行了描述，被称为增强型的LMA（eLMA）并且与在 RFC5213 中描述的LMA具有相似的性质。</li>
+</ul>
+
+
+<p>DAF由分布式路由子功能（DRF）和分布式移动子功能（DMF）组成：</p>
+
+<ul>
+<li>DRF在MN的第一跳路由器上作为分布式隧道端点进行操作，以此来支持在两个DMM端点（例如MN与其相应的节点，如CN）之间的优化的路由。</li>
+<li>DMF用来支持移动节点的移动性切换操作，减少在优化的路由建立的过程中数据包的丢失。</li>
+</ul>
+
+
+<p>在初始的MN附着中，本方案通过重新使用一个选项，即利用korhonen方案<a href="http://tools.ietf.org/html/draft-korhonen-dmm-prefix-properties-02">I-D.korhonen-dmm-prefix-properties</a>向MN传达IPv6前缀的源地址选择提示（例如在本草案中定义的前缀信息选项‘M’标志）。</p>
+
+<pre><code>     Internet
+        |           +-----+
+        |           | LMF |
+  Border Router     +-----+
+        |
+        +-----------------+---------
+                          |
+                      +---+---+
+                      | eLMA1 |
+                      | (DAF) |
+                      +--+----+
+           Global Prefix |  |Local Prefix
+               (PreB)    |  |  (PreA)
+                         V  V
+                        +----+
+                        | MN |
+                        +----+
+        IP1: From PreA (Local, without mobility)
+        IP2: From PreB (Global, with mobility)
+
+              Figure 1.  Initial Attach
+</code></pre>
+
+<p>当eLMA检测到一个初始的MN附件时，它会像该MN发出一个RA消息。该RA包括IPv6前缀，每个前缀都被它的属性进行标记，包括它的移动管理属性。根据移动管理属性，IPv6前缀被MN区分为两类，即全局前缀和本地前缀。它们被定义如下:</p>
+
+<ul>
+<li>全局前缀：如果一个来自全局前缀的IPv6地址被用作一个会话的源地址，那么将通过使用本草案中规定的移动性管理机制来向该会话提供完全的移动性支持。这意味着即使连接点改变了，地址始终保持有效。</li>
+<li>本地前缀：如果一个来自本地前缀的IPv6地址被用作一个会话的源地址，不向该会话提供或者只提供有一定限制的移动性支持。那么当连接点改变的时候，地址可能不是有效的。</li>
+</ul>
+
+
+<p>根据已获取的移动性管理性质，MN根据IPv6前缀的两种分类来支持它的服务应用。如果MN的应用需要移动性支持，MN将通过让应用调用一个适当的API套接字扩展来从全局前缀中获取一个IPv6地址。反之，如果MN的应用不需要或者只要求有限的移动性支持，MN将通过调用另一个适当的API套接字扩展来从本地前缀中获取一个IPv6地址。</p>
+
+<p>网络不会向本地IPv6前缀提供移动性，这意味着当MN改变它的连接点时（如eLMA)，那么前一个eLMA分配的本地前缀将被弃用\无效。当连接到下一个eLMA时，新的eLMA会分配一个新的本地前缀。</p>
+
+<p>eLMA只为那些全局前缀向LMF更新位置信息。</p>
+
+<h2>Detailed Scenarios and Approaches</h2>
+
+<h4>Initial Attach</h4>
+
+<p>当eLMA1检测到一个移动节点的最初链接，它向该移动节点发送一条RA消息。该RA包含两种前缀：本地前缀（PreA）和全局前缀（PreB）。eLMA应该根据[I-D.korhonen-dmm-prefix-properties]给PreA(如本地前缀)(http://tools.ietf.org/html/draft-korhonen-dmm-prefix-properties-02)分配一个高优先级，同时给PreB(如全局前缀)分配一个低优先级。</p>
+
+<p>移动节点的应用可以选择一个合适的IPv6地址作为它的源地址，如<a href="http://tools.ietf.org/html/draft-korhonen-dmm-prefix-properties-02">I-D.korhonen-dmm-prefix-properties</a>中第4节描述的。</p>
+
+<h4>Data forwarding</h4>
+
+<pre><code>                                IP1 as destination:
+                                common routing
+                          |             +-------+       +----+
+                          |             | eLMA3 |_______| CN |
+       +-----+            +-------------+ (DAF) |       +----+
+       | LMF |            |             +-------+
+       +-----+            |     IP2 as destination:
+                          |     Routing based on location
+       --------------+----+     (e.g. IP in IP tunnel)
+                     |
+                 +---+---+
+                 | eLMA1 |
+                 | (DAF) |
+                 +--+----+
+      Global Prefix |  |Local Prefix
+          (PreB)    |  |  (PreA)
+                    V  V
+                   +----+
+                   | MN |
+                   +----+
+   IP1: From PreA (Local, without mobility)
+   IP2: From PreB (Global, with mobility)
+
+        Figure 2.1 Data forwarding mechanism
+</code></pre>
+
+<p>当通信节点（CN）向MN发送消息时，首先到达CN的eLMA3。eLMA3将根据目的IPv6地址的类别进行操作：</p>
+
+<ol>
+<li>如果目的IPv6包含本地IPv6前缀（图2.1中的IP1），eLMA3将使用通用的路由机制来发送IP包。</li>
+<li>如果目的IPv6地址包含全局IPv6前缀（图2.1中的IP2），那么eLMA3将使用<a href="http://tools.ietf.org/id/draft-luo-dmm-pmip-based-dmm-approach-01.txt">I-D.luo-dmm-pmip-based-dmm-approach</a>7.2节中描述的路由机制来发送IP包。</li>
+</ol>
+
+
+<h4>Handoff Scenario</h4>
+
+<pre><code>                                          IP1 as destination:
+                                          can not be reachable
+                                          after handoff
+    Internet                              IP3 as destination:
+        |                                 common routing
+        |                                     +-------+       +----+
+        |                              |      | eLMA3 |_______| CN |
+        |          +-----+             +------+ (DAF) |       +----+
+  Border Router    | LMF |             |      +-------+
+        |          +-----+             |  IP2 as destination:
+        |                              |  Routing based on location
+        +-----+---------------------+--+
+              |                     |
+          +---+---+             +---+---+
+          | eLMA2 |             | eLMA1 |
+          | (DAF) |             | (DAF) |
+          +-------+             +--+----+
+Local Prefix |  |   Global Prefix   |  |Local Prefix
+  (PreC)     |  |       (PreB)      |  |  (PreA)
+             V  V                   V  V
+            +----+                 +----+
+            | MN |   &lt;------------ | MN |
+            +----+                 +----+
+ IP3: From PreC                IP1: From PreA
+ (Local, without mobility)     (Local, without mobility)
+ IP2:Keep unchanged            IP2: From PreB
+ (Global, with mobility)       (Global, with mobility)
+
+   Figure 3.1 Handover Scenario
+</code></pre>
+
+<p>从CN发送到IP1（从PreA中配置的）的通信将被IPv6路由系统自动丢弃；除非在前一个和下一个分布式定位之间建立一条临时的隧道用来维护到前一个本地前缀的可达性。依赖这些本地前缀的应用可能会遇到源IP地址变化的情况。</p>
+
+<p>由eLMA2分配的RA消息携带的新的本地前缀（如图3.1中的PreC）目前有高优先级。MN将为PreC生成一个新的IPv6本地地址（图3.1中IP3）。</p>
+
+<p>MN初始连接过程中eLMA1分配的全局前缀在RA消息中保持不变。为了维护这些全局地址的可达性，eLMA2应该向LMF执行位置更新，来维持全局前缀的可达性。<a href="http://tools.ietf.org/id/draft-luo-dmm-pmip-based-dmm-approach-01.txt">I-D.luo-dmm-pmip-based-dmm-approach</a>中的7.2节对切换细节进行了详细的描述。</p>
+
+<p>因此，执行切换之后，既可以通过新的本地IPv6地址（如IP3）也可以通过全局IPv6地址（如IP2）来到达移动节点；如果在eLMA1和eLMA2之间有临时通道，也可以通过前一个本地IPv6地址（如IP1）到达。</p>
+
+<p>是否在eLMA1与eLMA2之间建立临时隧道来维持本地前缀的可达，这取决于网络策略。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    Peng Feixiang
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

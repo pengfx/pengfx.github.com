@@ -1,0 +1,231 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>draft-ma-dmm-romip-00 - My Blog</title>
+    <meta name="author" content="Peng Feixiang">
+    
+	<meta name="description" content="A Route Optimization solution support for Distributed Mobility Management draft-ma-dmm-romip-00 The first elements that provide IP connectivity to a &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="My Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        Peng Feixiang
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Draft-ma-dmm-romip-00</h2>
+	<div class="entry-content"><h1>A Route Optimization solution support for Distributed Mobility Management</h1>
+
+<h3><a href="http://tools.ietf.org/id/draft-ma-dmm-romip-00.txt">draft-ma-dmm-romip-00</a></h3>
+
+<p>The first elements that provide IP connectivity to a set of MNs are also the mobility managers for those MNs.</p>
+
+<ul>
+<li>移动节点不参与任何与移动相关的信令交互。移动锚和接入路由器以及AAA代表主机负责管理IP移动性。</li>
+<li>The Home Address (HoA 切换前MAAR分配的地址) and Care-of address (CoA 切换后MAAR分配的地址).</li>
+<li>移动节点可以直接向通信节点发送数据包而不需要通过家乡移动锚。</li>
+</ul>
+
+
+<hr />
+
+<h2>1.  Introduction</h2>
+
+<ol>
+<li>MIPv6 和 PMIPv6的缺点</li>
+<li>在论文“<a href="http://eprints.networks.imdea.org/13/1/giust_mmfn2011.pdf">一个基于网络的分布式移动管理的局部性移动解决方案</a>”中，作者表述了两种方法：一个是完全分布式的方法，另一个是部分分布式的方法。第一个方法的主要问题是，如何在第一次连接到网络的时候和随后的切换之间区分移动锚和接入路由器。</li>
+<li>这篇文档描述了移动锚和接入路由器以及AAA协议代表主机对IP移动性的支持。这个解决方案能解决两方面的问题，它不仅使得移动实体能在第一次接入网络时和随后的切换之间进行区分，而且能减少家乡移动锚的重担。移动节点能直接向通信节点转发数据包。数据包的发送不需要通过家乡移动锚。 这篇文档时严格遵照这两方面进行展开。</li>
+<li>所遵循的两个原则:移动节点的移动对通信节点来说是透明的；移动节点不参与任何与移动相关的信令交互。</li>
+</ol>
+
+
+<h2>2.  Terminology</h2>
+
+<ul>
+<li>MAAR (Mobility anchor and Access Router)</li>
+<li>AAA (Authentication, Authorization and Accounting )</li>
+<li>DBU/DBA (Distributed BU/BA)</li>
+<li>sDBU/sDBA.  The MAAR attached by the MN currently to sends a sDBU message to the MAAR attached by MN before the MN&#8217;s movement.  After that, the MAAR attached by MN currently receives a sDBA message including the address of CN&#8217;s MAAR which the CN is currently attached to.  After that, the MAAR attached by the MN currently updates its internal binding list.</li>
+<li>dDBU/dDBA.  The MAAR attached by the MN currently sends a dDBU message to the MAAR attached by CN for refreshing the internal binding list of the CN&#8217;s MAAR which the CN is currently attached to. After receiving the dDBU message, the CN&#8217;s MAAR replies a dDBA message to the MN&#8217;s MAAR.</li>
+</ul>
+
+
+<h2>3.  Operation</h2>
+
+<pre><code>+----------+  +----------+ +-------+  +-------+   +-------+     +-----+
+|The user A|  |The user B| |A_MAAR2|  |B_MAAR2|   |A_MAAR3|     | AAA |
++----------+  +----------+ +-------+  +-------+   +-------+     +-----+
+     |             |           |          |           |             |
+     |--------------1.RS(A_HoA1,B_HoA1)--------------&gt;|             |
+     |             |           |          |           |-2.request--&gt;|
+     |             |           |          |           |&lt;-3.response-|
+     |&lt;-------------------4.RA(A_HoA3) ---------------|             |
+     |             |           |          |           |             |
+     |             |           |&lt;-------5.sDBU -------|             |
+     |             |           |------6. sDBA -------&gt;|             |
+     |             |           |          |&lt;-7.dDBU --|             |
+     |             |           |          |--8.dDBA -&gt;|             |
+     |             |           |          |           |             |
+
+
+                 Figure 1:Signaling of MN handover
+
+
+
+  ________                          ________
+ |The user|                        |The user|
+ |   B    |----------move---------&gt;|   B    |
+ |________|                        |________|
+                                      #  *
+                                      #  *
+                                      #  *
+  +-------+                       +-------+
+  |       |                       |       |
+  |B_MAAR1|                       |B_MAAR2|
+  |       |                     / |       |
+  +-------+                    /  +-------+
+                              /  #  /| * |
+                             /  #  / | * |
+                            /  #  /  | * |
+                           /  #  /   | * |
+                          /  #  /    | * |
+                         /  #  /     | * |
++-------+        +-------+ #  /    +-------+
+|       |        |       |   /     |       |
+|A_MAAR1|        |A_MAAR2|  /      |A_MAAR3|
+|       |        |       |         |       |
++-------+        +-------+         +-------+
+                    #                   *
+                    #                   *
+                    #                   *
+ ________         ________             ________
+|The user|       |The user|           |The user|
+|   A    |-move-&gt;|   A    |---move---&gt;|   A    |
+|________|       |________|           |________|
+
+
+             Figure 2:The transmission of data packets
+</code></pre>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    Peng Feixiang
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

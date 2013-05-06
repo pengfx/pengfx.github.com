@@ -1,0 +1,355 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>draft-luo-dmm-with-mip-and-pmip-00 - My Blog</title>
+    <meta name="author" content="Peng Feixiang">
+    
+	<meta name="description" content="Distributed Mobility Management Approach with Mobile IP and Proxy Mobile IP draft-luo-dmm-with-mip-and-pmip-00 本文提出了分布式移动管理体系结构的概念以及该结构的一些主要处理方法。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="My Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        Peng Feixiang
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Draft-luo-dmm-with-mip-and-pmip-00</h2>
+	<div class="entry-content"><h1>Distributed Mobility Management Approach with Mobile IP and Proxy Mobile IP</h1>
+
+<h3><a href="http://tools.ietf.org/html/draft-luo-dmm-with-mip-and-pmip-00">draft-luo-dmm-with-mip-and-pmip-00</a></h3>
+
+<pre><code>本文提出了分布式移动管理体系结构的概念以及该结构的一些主要处理方法。
+这些处理方法可以兼容现有的移动IP和代理移动IP协议。
+</code></pre>
+
+<hr />
+
+<h2>Introduction</h2>
+
+<p>集中式移动锚定有一些诸如单点故障、非最优路径路由等缺点。这些缺点在<a href="http://tools.ietf.org/html/draft-liu-mext-distributed-mobile-ip-00">I-D.liu-mext-distributed-mobile-ip</a>中讨论过了。</p>
+
+<p>本文提出了分布式移动管理体系结构的概念以及该结构的一些主要处理方法。这些处理方法可以兼容现有的移动IP和代理移动IP协议。</p>
+
+<p>本文只是一个初稿，并不为了解决<a href="http://tools.ietf.org/html/draft-liu-mext-distributed-mobile-ip-00">I-D.liu-mext-distributed-mobile-ip</a>中所提出的所有问题。</p>
+
+<h2>Terminology</h2>
+
+<p>移动路由(MR)，这是一个逻辑功能，用于拦截从移动节点和HoA发送/接收的数据包并转发数据包，根据位置信息执行分布式路由选择。</p>
+
+<p>主地址分配(HAA)，这是一个逻辑功能，用于向一个移动节点分配主网络前缀或主地址。</p>
+
+<p>位置管理(LM)，这是一个逻辑功能，用于管理并跟踪移动节点位置信息，其中包括MN的HoA与MN路由地址(或另一网络元素，它知道如何对MN的数据包进行转发)的映射。</p>
+
+<h2>Solution Overview</h2>
+
+<p>本方案将集中式锚点分解为下列逻辑功能，来允许使用更灵活的设计来实现DMM：</p>
+
+<ul>
+<li><p>主地址分配功能</p></li>
+<li><p>移动路由功能</p></li>
+<li><p>位置管理功能</p>
+
+<pre><code>          One Administrative Domain
+
+  (     LM1/HAA1    )(  LM2/HAA2 )(   LM3   HAA3  )
+  (                 )(           )(               )
+  (                 )(           )(               )
+  (  MR11     MR12  )(     MR2   )( MR31    MR32  )
+      +                               +
+      |     Local        Local        |     Local
+      |    Network1     Network2      |    Network3
+      +                               +
+     MN1                             MN2
+
+     Figure 1.  An example of DMM deployment
+</code></pre></li>
+</ul>
+
+
+<p>本文中假设所有本地网络均属于同一个管理域。</p>
+
+<p>MN最初连接的本地网络被称为它的Home Local Network。HAA功能是负责移动节点的IP地址\分配（例如HoA\HNP）。在移动过程中，移动节点可以离开它的Home Local Network进入另一个本地网络——Visited Local Network。</p>
+
+<pre><code>+-------------------------------------+  +--------------------------+
+|  +---------+         +---------+    |  |        +---------+       |
+|  |   HAA   |         |   LM    +&lt;---+--+-------&gt;+   LM    |       |
+|  +---+-----+         +----+----+    |  |        +----+----+       |
+|      ;                   /|\        |  |            /|\           |
+|     /|\                   |         |  |             |            |
+|      |                   \|/        |  |            \|/           |
+|      |               +----+----+    |  |        +----+----+       |
+|      +-------------&gt; |   MR    +&lt;---+--+-------&gt;+   MR    |       |
+|                      +--+---+--+    |  |        +--+---+--+       |
+|                        /|\ /|\      |  |          /|\ /|\         |
+|                         |   |       |  |           |   |          |
+|                         |___|       |  |           |___|          |
+|                                     |  |                          |
+| Home Local Network                  |  | Visited Local Network    |
++-------------------------------------+  +--------------------------+
+
+ Figure 2.  Architecture
+</code></pre>
+
+<p>HAA、LM和MR之间需要接口，它们被描述如下：</p>
+
+<pre><code>   a.  HAA和MR之间的接口支持当在MN依附MR时，IP前缀或地址的分配。
+
+   b.  LM和MR之间的接口支持MN路由位置管理，以及为MN设置最优路由。
+
+   c.  MR和MR之间的接口支持在控制平面MN从原MR（pMR）切换到新的MR（nMR），并支持在数据平面以分布式的方式分发MN与CN间的流量
+</code></pre>
+
+<p>一个管理域可能存在大量的移动节点，LM可能需要保存大量的信息，LM可以以分布式数据库的形式来部署。</p>
+
+<h2>Overview of the Distributed Mobility Management Approaches</h2>
+
+<h4>Initial Attachment</h4>
+
+<h4>Dynamic Mobility Management</h4>
+
+<ol>
+<li>pMR和nMR的HoA\HNP对于移动节点是可用</li>
+<li>nMR下新发起的会话，优选使用新的HoA\HNP作为源IP</li>
+<li>切换前发起的旧会话仍然可以使用旧的HoA\HNP作为源IP。</li>
+</ol>
+
+
+<p>上述策略基于以下前提：</p>
+
+<ol>
+<li><strong>移动节点应该可以管理多个HoAs\HNP</strong>。</li>
+<li><strong>MN可以在MN上的应用请求IP地址绑定时决定返回哪一个HoA</strong>。</li>
+</ol>
+
+
+<h4>Distributed Routing</h4>
+
+<pre><code>+-----+      +-------+     +-------+    +--------+     +-----+
+| MN2 |      |  MR31 |     |  LM   |    |  MR11  |     | MN1 |
++-----+      +-------+     +-------+    +--------+     +-----+
+   |             |            |             |             |
+   |1.IP Traffic |            |             |             |
+   |===========&gt; | 2. Query   |             |             |
+   |             |----------&gt; |             |             |
+   |             | 3. Rsp     |             |             |
+   |             |&lt;------ ----|             |             |
+   |   +------------------+   |             |             |
+   |   | 4.Record Location|   |             |             |
+   |   |   of MN1 Locally |   |             |             |
+   |   +------------------+   |             |             |
+   |             |  5. Distributed Routing  |             |
+   |             |========================&gt; |             |
+   |             |            |             |6.IP Traffic |
+   |             |            |             |===========&gt; |
+   |             |            |             |             |
+
+    Figure 3.  Optimized routing based on location query
+
+
+
++-----+      +-------+     +-------+    +--------+   +--------+   +-----+
+| MN2 |      |  MR31 |     |  LM1  |    |  MR12  |   |  MR11  |   | MN1 |
++-----+      +-------+     +-------+    +--------+   +--------+   +-----+
+   |             |            |             |            |           |
+   |1.IP Traffic |            |             |            |           |
+   |============&gt;|            |             |            |           |
+   |    +-------------------+ |             |            |           |
+   |    |2.Don't have MN1's | |             |            |           |
+   |    |  Routing Location | |             |            |           |
+   |    +-------------------+ |             |            |           |
+   |             | 3. Regular IPv6 Routing  |            |           |
+   |             |========================&gt; |            |           |
+   |             |            |   4. Query  |            |           |
+   |             |            |&lt;------------|            |           |
+   |             |            |   5. Rsp    | 6. Distributed         |
+   |             |            |------------&gt;|    Routing             |
+   |             |     8. Redirect          |===========&gt;|           |
+   |             |&lt;-------------------------|            7.IP Traffic|
+   |             |            |             |            |==========&gt;|
+   |             |         9. Distributed Routing        |           |
+   |             |======================================&gt;|           |
+   |             |            |             |           10.IP Traffic|
+   |             |            |             |            |==========&gt;|
+   |             |            |             |            |           |
+   |             |            |             |            |           |
+
+       Figure 4.  Another approach for optimized routing
+
+
++---+     +--------+   +--------+   +-------+  +--------+     +---+
+|MN1|     |  MR11  |   |   MR2  |   |  LM1  |  |  MR31  |     |MN2|
++---+     +--------+   +--------+   +-------+  +--------+     +---+
+  |            |            |           |           |           |
+  |            |           1. Ongoing traffic       |           |
+  |&lt;==========&gt;|&lt;==================================&gt;|&lt;========&gt; |
+  |            |  2. Context|           |           |           |
+  |            |  Transfer  |           |           |           |
+  |            |&lt;----------&gt;|           |           | 3. IP     |
+  |            |            |           |           | Traffic   |
+  |            |            4. Distributed Routing  |&lt;========= |
+  |            |&lt;===================================|           |
+  |            |5. Transfer |           |           |           |
+  |            |==========&gt; |           |           |           |
+  |    6. IP Traffic        |           |           |           |
+  |&lt;======================= |           |           |           |
+  |            |            | 7. Redirect           |           |
+  |            |----------------------------------&gt; |           |
+  |            |            |           | +----------------+    |
+  |            |            |           | | 8. Update      |    |
+  |            |            |           | | Location of MN1|    |
+  |            |            |           | +----------------+    |
+  |            |            |           |           |  9. IP    |
+  |            |            |           |           |  Traffic  |
+  |            |            |10. Distributed Routing|&lt;==========|
+  |    11. IP Traffic       |&lt;======================|           |
+  |&lt;========================|                       |           |
+  |            |            |                       |           |
+
+        Figure 5.  Handover with Active Session
+</code></pre>
+
+<h2>Considerations of the Optimized Routing</h2>
+
+<p>CN被假定为移动节点。这意味着CN必须连接到一个确定的MR，而且这个MR必须跟踪CN的位置并解析从CN到MN的所有数据包。但是，当CN为固定节点时，可能就没有这样为CN服务的MR了。</p>
+
+<p>现实环境中，大多数的固定节点（CN）都以一种集中的方式被部署，例如CDN/IDC/Web服务器等。这些固定节点一般是由同一对接入路由器汇聚，即使那些固定的节点的接入运营商的IP承载网拓扑可能是非常复杂的。 图6是一个示例。</p>
+
+<pre><code>   __________
+  /    CN     \            ,--------.
+((CDN\IDC\Web )---Access Router     `.
+(   Server)   )    ,--'               `'
+ \___________/     \                 _ -'
+                    '--  MR  -----''
+                          |
+                          |
+                         MN1
+
+ Figure 6.  CNs are fixed nodes
+</code></pre>
+
+<p>对于在图6中描述的场景，直接的解决方案是利用所谓的汇聚接入路由器或网关路由器（即在上图标出的接入路由器）实现MR功能。</p>
+
+<p>另一种替代方法是使用<a href="http://tools.ietf.org/html/draft-chan-dmm-framework-gap-analysis-06">I-D.chan-dmm-framework-gap-analysis</a>和<a href="http://tools.ietf.org/html/draft-wakikawa-mext-global-haha-spec-02">I-D.wakikawa-mext-global-haha-spec</a>中所描述的anycast机制。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    Peng Feixiang
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

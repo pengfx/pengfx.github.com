@@ -1,0 +1,249 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>draft-liu-dmm-address-selection-01 - My Blog</title>
+    <meta name="author" content="Peng Feixiang">
+    
+	<meta name="description" content="Address Selection for DMM draft-liu-dmm-address-selection-01 移动节点有可能有多个移动锚点以及相对应的前缀。
+在这种情况下，移动节点需要知道地址类型以选择一个正确的地址供应用使用。
+本篇文档描述了一种扩展路由通告消息的机制， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="My Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        Peng Feixiang
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Draft-liu-dmm-address-selection-01</h2>
+	<div class="entry-content"><h1>Address Selection for DMM</h1>
+
+<h3><a href="http://tools.ietf.org/html/draft-liu-dmm-address-selection-01">draft-liu-dmm-address-selection-01</a></h3>
+
+<pre><code>移动节点有可能有多个移动锚点以及相对应的前缀。
+在这种情况下，移动节点需要知道地址类型以选择一个正确的地址供应用使用。
+本篇文档描述了一种扩展路由通告消息的机制，通过携带一个标志以用来鉴别前缀的性质。
+</code></pre>
+
+<hr />
+
+<h2>Problem of address selection for DMM</h2>
+
+<blockquote><p>draft-liu-dmm-dynamic-anchor-discussion-00</p></blockquote>
+
+<p>分布式移动管理动态节点方案有地址选择的问题。这个问题的难点在于：移动节点并不知道多个前缀之间的区别。网络无法告知移动节点不同前缀性质之间的区别，而且也没有标准的机制让移动节点选择正确的前缀。</p>
+
+<h2>Extension to Router Advertisment</h2>
+
+<p>   移动IPv6 <a href="http://www.ietf.org/rfc/rfc3775.txt">RFC3775</a> 扩展了IPv6路由通告消息用来移动探测和本地代理信息广播。这篇文档建议对IPv6路由通告消息进行更多扩展以携带一个标志对它通告的前缀性质进行鉴别。<strong>H位</strong>被用来标识路由通告是由本地代理发送的。</p>
+
+<pre><code>                  +----------+---------+-------------------+
+                  |  Type    |  Code   |     Checksum      |
+                  +----------+-+-+-+---+-------------------+
+                  |Hop Limit |M|O|H|Re-|    Router Lifetime|
+                  +----------+-+-+-+---+-------------------+
+                  |          Reachable Time                |
+                  +----------------------------------------+
+                  |          Retrans Timer                 |
+                  +----------------------------------------+
+                  |          Options                       |
+                  +----------------------------------------+
+</code></pre>
+
+<p>扩展前缀消息选项，添加一个“T”标志，其定义如下：</p>
+
+<h4>T类型标志</h4>
+
+<ul>
+<li>00: 本地网络前缀。它表明这个前缀是由该移动节点所属的路由器分配和通告的。</li>
+<li>01: 远程网络前缀。它表明这个前缀是除这个移动节点所属的路由外的其他路由分配的。</li>
+<li>10: 保留</li>
+<li><p>11: 保留</p>
+
+<pre><code>          +-------------+------------+------------+-+-+-+--+---+
+          |    Type     |    Length  |PrefixLength|L|A|R|T |R- |
+          +-------------+------------+------------+-+-+-+--+---+
+          |                 Valid Lifetime                     |
+          +----------------------------------------------------+
+          |                 Preferred Lifetime                 |
+          +----------------------------------------------------+
+          |                 Reserved                           |
+          +----------------------------------------------------+
+          |                                                    |
+          |                 Prefix                             |
+          +----------------------------------------------------+
+</code></pre></li>
+</ul>
+
+
+<p><strong>路由用来鉴别前缀类型的机制在这篇文档的范围之外。比如说，路由能通过查询策略服务器来知道由哪个路由分配特定的前缀。</strong></p>
+
+<h2>Mobile Node Operation</h2>
+
+<p>移动节点通过路由通告消息的T标志识别前缀类型。移动节点上的应用可以通过这个信息来选择正确的IP地址。比如说，在一个在会话中，应用一直选择之前使用的前缀直至其被移交到新的位置。对于新初始的应用，他会使用被当前路由分配的前缀。</p>
+
+<h4>An Example of How This Draft Works</h4>
+
+<pre><code>     _______     _______    _______
+    |       |   |       |  |       |
+    |  CN1  |   |  CN2  |  |  CN3  |
+    |_______|   |_______|  |_______|
+        '           .            .
+ Flow#1 '    Flow#2 .            |  Flow#3
+        '   ...'''''.'''''''.... .
+      ..'''         .           '''..
+    .'  '      IP network        .   '.
+    :   '           .            |    :
+     '..'       +-------+        . ..'
+        '''...  |       |.......'''
+        '       | MAR2  | \      .
+        '       |       |. \     |
+        '       |       | . \    .
+        '       +-------+\  .\   |
+   +-------+   HNP2(T=00) \  + ------+
+   |       |   HNP1(T=01)  \ |       | HNP3(T=00)
+   | MAR1  |-----------------|  MAR3 | HNP2(T=01)
+   |       | ''''''''''''''''|       | HNP1(T=01)
+   |       |-----------------|       |
+   +-------+                 +-------+
+   HNP1(T=00)                   ' . |
+                        Flow#1  ' . .  Flow#3
+                                ' . |
+     +-----+            Flow#2 +-----+
+     | MN  | -----move-------&gt; | MN  |
+     +-----+                   +-----+
+</code></pre>
+
+<ol>
+<li>当移动节点附属到MAR1，MAR1发送了路由通告消息，包含前缀信息选项的移动节点的HNP1以及T标志位设置为00。这表明HNP1是由当前路由（MAR1）分配和通告的本地网络前缀。移动节点能通过取自HNP1的IPv6地址初始化与CN1的会话（如图中的flow#1）。</li>
+<li>当移动节点切换至MAR2（flow#1在移动节点切换时仍在持续），MAR2发送包含了移动节点的HNP2的路由通告消息，其类型标志T被设置成00，同时之前的前缀（HNP1）被设置成01。移动节点就会识别HNP2是当前本地网络前缀，而HNP1是远程网络前缀。这时，移动节点会用取自HNP2的IPv6地址作为源地址初始化一个新的与CN2（如图中的flow#2）会话。因为IPv6地址取自本地网络前缀（HNP2），flow#2会使用常规的IPv6协议。对于flow#1，MAR1充当LMA，MAR2充当MAG。</li>
+<li>当移动节点切换至MAR3时（移动节点切换时flow#1和flow#2仍在持续），MAR3发送包含了移动节点新的前缀（HNP3）的路由通告消息，类型标志（T）被置为00，而之前的前缀（HNP1、HNP2）的类型标志（T）被置为01。这表明HNP3是本地网络前缀，而HNP1和HNP2是远程网络前缀。这时，移动节点把从HNP3取得的IPv6地址作为原地址，初始化与CN3的会话（比如图中的flow#3）。flow#3使用常规的IPv6协议。</li>
+</ol>
+
+
+<h4>MN Handoffs From MAR Back to Its Previous MAR</h4>
+
+<p>上述过程的逆过程。略。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    Peng Feixiang
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>
