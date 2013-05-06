@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopress | My Blog]]></title>
+  <link href="http://pengfx.github.io/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://pengfx.github.io/"/>
+  <updated>2013-05-06T12:48:29+08:00</updated>
+  <id>http://pengfx.github.io/</id>
+  <author>
+    <name><![CDATA[Peng Feixiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[为已托管在github的octopress配置本地环境]]></title>
+    <link href="http://pengfx.github.io/blog/2013/05/06/set-local-octopress-env/"/>
+    <updated>2013-05-06T13:00:00+08:00</updated>
+    <id>http://pengfx.github.io/blog/2013/05/06/set-local-octopress-env</id>
+    <content type="html"><![CDATA[<p>1.本地安装Ruby
+2.从你的github获取已托管的octopress内容</p>
+
+<pre><code>git clone -b source git@github.com:username/username.github.com.git octopress # get the source code from your "source" branch of your octopress on github
+cd octopress
+git clone git@github.com:username/username.github.com.git _deploy # get your static pages content from your "master"branch of your cotopress on github
+</code></pre>
+
+<p>3.安装依赖gems</p>
+
+<pre><code>gem install bundler # Install dependencies
+bundle install
+rake install # Install the default Octopress theme
+</code></pre>
+
+<p>4.编写文章并部署</p>
+
+<pre><code>cd octopress
+rake new_post["Title"]
+rake generate 
+rake preview 
+rake deploy 
+</code></pre>
+
+<p>5.提交文本修改到github</p>
+
+<pre><code>cd octopress
+git add .
+git commit -m 'message'
+git push origin source
+</code></pre>
+
+<p><strong>注：从github得到最新的source内容</strong></p>
+
+<pre><code>cd octopress
+cd _deploy
+git pull origin master
+cd ..
+git pull origin source
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
