@@ -4,7 +4,7 @@
   <title><![CDATA[Category: DMM | My Blog]]></title>
   <link href="http://pengfx.github.io/blog/categories/dmm/atom.xml" rel="self"/>
   <link href="http://pengfx.github.io/"/>
-  <updated>2013-04-23T13:56:51+08:00</updated>
+  <updated>2013-05-06T10:24:18+08:00</updated>
   <id>http://pengfx.github.io/</id>
   <author>
     <name><![CDATA[Peng Feixiang]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[draft-bernardos-dmm-distributed-anchoring-01]]></title>
+    <link href="http://pengfx.github.io/blog/2013/05/06/draft-bernardos-dmm-distributed-anchoring-01/"/>
+    <updated>2013-05-06T10:21:00+08:00</updated>
+    <id>http://pengfx.github.io/blog/2013/05/06/draft-bernardos-dmm-distributed-anchoring-01</id>
+    <content type="html"><![CDATA[<h1>PMIPv6-based distributed anchoring</h1>
+
+<h3><a href="http://tools.ietf.org/html/draft-bernardos-dmm-distributed-anchoring-01">draft-bernardos-dmm-distributed-anchoring-01</a></h3>
+
+<blockquote><p> <a href="http://tools.ietf.org/html/draft-bernardos-dmm-distributed-anchoring-02">draft-bernardos-dmm-distributed-anchoring-02</a> April 8, 2013</p>
+
+<p>02相比01变化很小，可以忽略两者间的差异</p></blockquote>
+
+<p>The draft focuses on the required extensions to effectively support simultaneously anchoring several flows at different distributed gateways.</p>
+
+<hr />
+
+<h2>1.  Introduction</h2>
+
+<p>The main contribution of this draft is the definition of the mechanisms required to support the operation of such a network-based mobility solution when several flows are simultaneously anchored at different D-GWs, by introducing the concept of <strong>Distributed Logical Interface (DLIF)</strong>.</p>
+
+<p>The document also defines the <strong>required PMIPv6 signaling extensions</strong>.</p>
+
+<p> Last, but not least, the solution is also extended to <strong>provide session continuity across different domains</strong>.</p>
+
+<h2>2.  Terminology</h2>
+
+<ul>
+<li><p>D-GW (Distributed Gateway).移动节点使用的第一跳IP路由器。它为每一个附加的移动节点提供一个IPv6前缀。</p></li>
+<li><p>Anchoring D-GW. 前访问过的锚定一个仍被移动节点使用的IPv6地址前缀的D-GW。</p></li>
+<li><p>Serving D-GW.MN当前连接到的D-GW。</p></li>
+<li><p>DLIF (Distributed Logical Interface).位于D-GW的IP协议栈的逻辑接口。对于每个活动的由移动节点使用的前缀，Serving D-GW具有DLIF配置（相关联到Anchoring D-GW）。这种方式下，Serving D-GW对每一个MN充当多个路由器，每一个对应到 active Anchoring D-GW。</p></li>
+<li>HSS(Home Subscriber Server).3GPP....</li>
+</ul>
+
+
+<h2>3.  Solution's overview</h2>
+
+<p>当移动节点连接到一个D-GW（初始连接或切换），D-GW作为路由器提供给MN一个IPv6前缀。MN独占前缀。D-GW充当普通路由器。</p>
+
+<p>当移动节点进行切换时，会附加到一个新的D-GW并且由于获得新的地址前缀和锚定到新的服务D-GW，将配置新的IPv6地址。D-GW充当普通路由器。
+如果anchoring D-GWs下发的前缀上还有active traffic，或者仅仅是想维持这个前缀的可达，serving D-GW充当MAG，anchoring D-GWs充当LMA。PBU，PBA。隧道。</p>
+
+<p>serving D-GW上获取相关联的anchoring D-GWs超出本文范围。Among the possible mechanisms that can be used to
+let the D-GW know about the prefixes that should be kept reachable, we can cite for instance layer-2 triggers/signaling.Regarding the mapping of IPv6 prefixes to anchoring D-GWs, there might be either fully distributed mechanisms in place, or the information can be maintained in a centralized repository (e.g.,in the HSS, using a centralized LMA <a href="http://tools.ietf.org/html/draft-bernardos-dmm-pmip-01">I-D.bernardos-dmm-pmip</a>, etc.).</p>
+
+<pre><code>        +-----+      +-------+      +-------+      +-------------+
+        | MN1 |      | D-GW1 |      | D-GW2 |      | CN@Internet |
+        +-----+      +-------+      +-------+      +-------------+
+           |             |              |                 |
+           |  attachment |              |                 |
+           |&lt;...........&gt;|              |                 |
+           |  prefA::/64 |              |                 |
+           |&lt;------------|              |                 |
+configures |             |              |                 |
+prefA::MN1 |             |              |                 |
+           |          (traffic using prefA::MN1)          |
+           |&lt;------------|-------------------------------&gt;|
+           |             |              |                 |
+           |         handover           |                 |
+           /............................/                 |
+           |             |   prefB::/64 |                 |
+           |&lt;---------------------------|                 |
+configures |             |         PBU  |                 |
+prefB::MN1 |      tunnel |&lt;-------------|                 |
+and keeps  |      set-up |  PBA         |                 |
+  using    |             |-------------&gt;| tunnel          |
+prefA::MN1 |             |              | set-up          |
+           |          (traffic using prefB::MN1)          |
+           |&lt;---------------------------|----------------&gt;|
+           |          (traffic using prefA::MN1)          |
+           |             |&lt;------------------------------&gt;|
+           |             |&lt;============&gt;|                 |
+           |&lt;--------------------------&gt;|                 |
+           |             |              |                 |
+
+              Figure 1: Basic operation of the solution
+</code></pre>
+
+<h2>4.  Simultaneous anchoring of multiple flows (single operator)</h2>
+
+<pre><code>如何给MN配置多个地址，并使地址具有优先级
+</code></pre>
+
+<h2>5.  Simultaneous anchoring of multiple flows (multiple operators)</h2>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[draft-bernardos-mext-dmm-pmip-01]]></title>

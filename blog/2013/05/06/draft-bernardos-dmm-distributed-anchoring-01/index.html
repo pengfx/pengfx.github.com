@@ -1,0 +1,219 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>draft-bernardos-dmm-distributed-anchoring-01 - My Blog</title>
+    <meta name="author" content="Peng Feixiang">
+    
+	<meta name="description" content="PMIPv6-based distributed anchoring draft-bernardos-dmm-distributed-anchoring-01 draft-bernardos-dmm-distributed-anchoring-02 April 8, 2013 02相比01变化很小 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="My Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        Peng Feixiang
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Draft-bernardos-dmm-distributed-anchoring-01</h2>
+	<div class="entry-content"><h1>PMIPv6-based distributed anchoring</h1>
+
+<h3><a href="http://tools.ietf.org/html/draft-bernardos-dmm-distributed-anchoring-01">draft-bernardos-dmm-distributed-anchoring-01</a></h3>
+
+<blockquote><p> <a href="http://tools.ietf.org/html/draft-bernardos-dmm-distributed-anchoring-02">draft-bernardos-dmm-distributed-anchoring-02</a> April 8, 2013</p>
+
+<p>02相比01变化很小，可以忽略两者间的差异</p></blockquote>
+
+<p>The draft focuses on the required extensions to effectively support simultaneously anchoring several flows at different distributed gateways.</p>
+
+<hr />
+
+<h2>1.  Introduction</h2>
+
+<p>The main contribution of this draft is the definition of the mechanisms required to support the operation of such a network-based mobility solution when several flows are simultaneously anchored at different D-GWs, by introducing the concept of <strong>Distributed Logical Interface (DLIF)</strong>.</p>
+
+<p>The document also defines the <strong>required PMIPv6 signaling extensions</strong>.</p>
+
+<p> Last, but not least, the solution is also extended to <strong>provide session continuity across different domains</strong>.</p>
+
+<h2>2.  Terminology</h2>
+
+<ul>
+<li><p>D-GW (Distributed Gateway).移动节点使用的第一跳IP路由器。它为每一个附加的移动节点提供一个IPv6前缀。</p></li>
+<li><p>Anchoring D-GW. 前访问过的锚定一个仍被移动节点使用的IPv6地址前缀的D-GW。</p></li>
+<li><p>Serving D-GW.MN当前连接到的D-GW。</p></li>
+<li><p>DLIF (Distributed Logical Interface).位于D-GW的IP协议栈的逻辑接口。对于每个活动的由移动节点使用的前缀，Serving D-GW具有DLIF配置（相关联到Anchoring D-GW）。这种方式下，Serving D-GW对每一个MN充当多个路由器，每一个对应到 active Anchoring D-GW。</p></li>
+<li>HSS(Home Subscriber Server).3GPP&#8230;.</li>
+</ul>
+
+
+<h2>3.  Solution&#8217;s overview</h2>
+
+<p>当移动节点连接到一个D-GW（初始连接或切换），D-GW作为路由器提供给MN一个IPv6前缀。MN独占前缀。D-GW充当普通路由器。</p>
+
+<p>当移动节点进行切换时，会附加到一个新的D-GW并且由于获得新的地址前缀和锚定到新的服务D-GW，将配置新的IPv6地址。D-GW充当普通路由器。
+如果anchoring D-GWs下发的前缀上还有active traffic，或者仅仅是想维持这个前缀的可达，serving D-GW充当MAG，anchoring D-GWs充当LMA。PBU，PBA。隧道。</p>
+
+<p>serving D-GW上获取相关联的anchoring D-GWs超出本文范围。Among the possible mechanisms that can be used to
+let the D-GW know about the prefixes that should be kept reachable, we can cite for instance layer-2 triggers/signaling.Regarding the mapping of IPv6 prefixes to anchoring D-GWs, there might be either fully distributed mechanisms in place, or the information can be maintained in a centralized repository (e.g.,in the HSS, using a centralized LMA <a href="http://tools.ietf.org/html/draft-bernardos-dmm-pmip-01">I-D.bernardos-dmm-pmip</a>, etc.).</p>
+
+<pre><code>        +-----+      +-------+      +-------+      +-------------+
+        | MN1 |      | D-GW1 |      | D-GW2 |      | CN@Internet |
+        +-----+      +-------+      +-------+      +-------------+
+           |             |              |                 |
+           |  attachment |              |                 |
+           |&lt;...........&gt;|              |                 |
+           |  prefA::/64 |              |                 |
+           |&lt;------------|              |                 |
+configures |             |              |                 |
+prefA::MN1 |             |              |                 |
+           |          (traffic using prefA::MN1)          |
+           |&lt;------------|-------------------------------&gt;|
+           |             |              |                 |
+           |         handover           |                 |
+           /............................/                 |
+           |             |   prefB::/64 |                 |
+           |&lt;---------------------------|                 |
+configures |             |         PBU  |                 |
+prefB::MN1 |      tunnel |&lt;-------------|                 |
+and keeps  |      set-up |  PBA         |                 |
+  using    |             |-------------&gt;| tunnel          |
+prefA::MN1 |             |              | set-up          |
+           |          (traffic using prefB::MN1)          |
+           |&lt;---------------------------|----------------&gt;|
+           |          (traffic using prefA::MN1)          |
+           |             |&lt;------------------------------&gt;|
+           |             |&lt;============&gt;|                 |
+           |&lt;--------------------------&gt;|                 |
+           |             |              |                 |
+
+              Figure 1: Basic operation of the solution
+</code></pre>
+
+<h2>4.  Simultaneous anchoring of multiple flows (single operator)</h2>
+
+<pre><code>如何给MN配置多个地址，并使地址具有优先级
+</code></pre>
+
+<h2>5.  Simultaneous anchoring of multiple flows (multiple operators)</h2>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    Peng Feixiang
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>
