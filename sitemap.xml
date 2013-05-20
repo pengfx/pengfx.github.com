@@ -2,102 +2,106 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://pengfx.github.io/blog/2012/07/22/intro/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2012/07/22/the-problem-with-pingdom/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/04/16/hello-world/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/04/22/test-clone/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/04/22/draft-bernardos-mext-dmm-pmip-01/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/04/23/git/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://pengfx.github.io/blog/2013/05/06/draft-bernardos-dmm-distributed-anchoring-01/
         </loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://pengfx.github.io/blog/2013/05/06/draft-korhonen-dmm-prefix-properties-03/
         </loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/05/06/draft-liu-dmm-address-selection-01/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://pengfx.github.io/blog/2013/05/06/draft-liu-dmm-dynamic-anchor-discussion-00/
         </loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://pengfx.github.io/blog/2013/05/06/draft-luo-dmm-with-ipv6-prefix-properties-00/
         </loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/05/06/draft-luo-dmm-with-mip-and-pmip-00/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/05/06/draft-ma-dmm-armip-00/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/05/06/draft-ma-dmm-romip-00/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/05/06/draft-mccann-dmm-flatarch-00/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/05/06/set-local-octopress-env/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/2013/05/20/ruby-functional-programming/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/archives/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://pengfx.github.io/robots.txt</loc>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/about/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/blog/archives/</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/search.html</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
     <url>
         <loc>http://pengfx.github.io/404.html</loc>
-        <lastmod>2013-05-20T19:17:44+08:00</lastmod>
+        <lastmod>2013-05-20T19:21:51+08:00</lastmod>
     </url>
 </urlset>
