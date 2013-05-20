@@ -9,10 +9,8 @@
   <meta name="author" content="Peng Feixiang">
 
   
-  <meta name="description" content="Ruby 函数式编程 by Arnau Sanchez 本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 RubyFunctionalProgramming。 同时也有日文版本。 目录 简介
-理论部分
-Ruby的函数式编程 不要更新变量
-用 Blocks 作为高阶函数 &hellip;">
+  <meta name="description" content="Tweet Ruby 函数式编程 May 20th, 2013 Ruby 函数式编程 by Arnau Sanchez 本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 RubyFunctionalProgramming。 同时也有日文版本。 目录 简介
+理论部分 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,7 +22,6 @@ Ruby的函数式编程 不要更新变量
   <link rel="canonical" href="http://pengfx.github.io/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
@@ -32,47 +29,84 @@ Ruby的函数式编程 不要更新变量
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-
 
   
 
 </head>
 
-<body   >
-  <header role="banner"><hgroup>
-</hgroup>
+<body >
+  <header role="banner" id="sidebar">
+    <!-- Logo -->
+<aside id="logo" class="clearfix">
+  <div class="clearfix">
+    <a href="/">My Blog</a>
+  </div>
+</aside>
 
-</header>
-  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
+<ul id="menu">
+
+  <li class="title">
+    <h1 id="title"><a href="/">My Blog</a></h1>
+  </li>
+
+
+  <li class="subtitle">
+    <h2 id="subtitle">Hello</h2>
+  </li>
+
+  <li class="link">
+    <a href="/about/">about</a>
+  </li>
+
+
+  <li class="link rss">
+    <a href="/atom.xml">rss feed</a>
+  </li>
 </ul>
-  
+
+
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:pengfx.github.io" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
 
-</nav> -->
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
+
+<!-- Octopress Love -->
+<aside id="octopress_linkback">
+  <a href="http://octopress.org/">
+    <span class="unicode_square">
+      <span class="unicode_circle">
+        &nbsp;
+      </span>
+    </span>
+    <span class="octopress">Powered by Octopress</span>
+  </a>
+</aside>
+
+  </header>
+  <section id="main">
+      
+  
+  
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
   
   
   
-    <article>
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/20/ruby-functional-programming/">Ruby 函数式编程</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/20/ruby-functional-programming/">Ruby 函数式编程</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -95,7 +129,7 @@ Ruby的函数式编程 不要更新变量
   </header>
 
 
-  <div class="entry-content"><h1>Ruby 函数式编程 by Arnau Sanchez</h1>
+  <h1>Ruby 函数式编程 by Arnau Sanchez</h1>
 
 <p>本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 <a href="http://code.google.com/p/tokland/wiki/RubyFunctionalProgramming">RubyFunctionalProgramming</a>。</p>
 
@@ -881,7 +915,7 @@ Ruby的函数式编程 不要更新变量
 <p>This document is licensed under the CC-By 3.0 License, which encourages you to share these documents. See http://creativecommons.org/licenses/by/3.0/ for more details.</p>
 
 <p><img alt="CC-By 3.0 License http://creativecommons.org/licenses/by/3.0/" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></p>
-</div>
+
   
   
 
@@ -889,11 +923,23 @@ Ruby的函数式编程 不要更新变量
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/set-local-octopress-env/">为已托管在github的octopress配置本地环境</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/set-local-octopress-env/">为已托管在github的octopress配置本地环境</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -916,7 +962,7 @@ Ruby的函数式编程 不要更新变量
   </header>
 
 
-  <div class="entry-content"><p>1.本地安装Ruby
+  <p>1.本地安装Ruby
 2.从你的github获取已托管的octopress内容</p>
 
 <pre><code>git clone -b source git@github.com:username/username.github.com.git octopress # get the source code from your "source" branch of your octopress on github
@@ -956,7 +1002,7 @@ git pull origin master
 cd ..
 git pull origin source
 </code></pre>
-</div>
+
   
   
 
@@ -964,11 +1010,23 @@ git pull origin source
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/draft-mccann-dmm-flatarch-00/">Draft-mccann-dmm-flatarch-00</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/draft-mccann-dmm-flatarch-00/">Draft-mccann-dmm-flatarch-00</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -991,14 +1049,14 @@ git pull origin source
   </header>
 
 
-  <div class="entry-content"><h1>Authentication and Mobility Management in a Flat Architecture</h1>
+  <h1>Authentication and Mobility Management in a Flat Architecture</h1>
 
 <h3><a href="http://tools.ietf.org/html/draft-mccann-dmm-flatarch-00">draft-mccann-dmm-flatarch-00</a></h3>
 
 <p>从运营商角度看待移动性管理，包含部署、身份认证等，略之</p>
 
 <hr />
-</div>
+
   
   
 
@@ -1006,11 +1064,23 @@ git pull origin source
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/draft-ma-dmm-romip-00/">Draft-ma-dmm-romip-00</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/draft-ma-dmm-romip-00/">Draft-ma-dmm-romip-00</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -1033,7 +1103,7 @@ git pull origin source
   </header>
 
 
-  <div class="entry-content"><h1>A Route Optimization solution support for Distributed Mobility Management</h1>
+  <h1>A Route Optimization solution support for Distributed Mobility Management</h1>
 
 <h3><a href="http://tools.ietf.org/id/draft-ma-dmm-romip-00.txt">draft-ma-dmm-romip-00</a></h3>
 
@@ -1125,7 +1195,7 @@ git pull origin source
 
              Figure 2:The transmission of data packets
 </code></pre>
-</div>
+
   
   
 
@@ -1133,11 +1203,23 @@ git pull origin source
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/draft-ma-dmm-armip-00/">Draft-ma-dmm-armip-00</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/draft-ma-dmm-armip-00/">Draft-ma-dmm-armip-00</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -1160,7 +1242,7 @@ git pull origin source
   </header>
 
 
-  <div class="entry-content"><h1>An AR-level solution support for Distributed Mobility Management</h1>
+  <h1>An AR-level solution support for Distributed Mobility Management</h1>
 
 <h3><a href="https://tools.ietf.org/html/draft-ma-dmm-armip-00">draft-ma-dmm-armip-00</a></h3>
 
@@ -1270,7 +1352,7 @@ Flow#1 '               *                 | Flow#3
 <h2>6.  Message Formats</h2>
 
 <p>略</p>
-</div>
+
   
   
 
@@ -1278,11 +1360,23 @@ Flow#1 '               *                 | Flow#3
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/draft-luo-dmm-with-mip-and-pmip-00/">Draft-luo-dmm-with-mip-and-pmip-00</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/draft-luo-dmm-with-mip-and-pmip-00/">Draft-luo-dmm-with-mip-and-pmip-00</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -1305,7 +1399,7 @@ Flow#1 '               *                 | Flow#3
   </header>
 
 
-  <div class="entry-content"><h1>Distributed Mobility Management Approach with Mobile IP and Proxy Mobile IP</h1>
+  <h1>Distributed Mobility Management Approach with Mobile IP and Proxy Mobile IP</h1>
 
 <h3><a href="http://tools.ietf.org/html/draft-luo-dmm-with-mip-and-pmip-00">draft-luo-dmm-with-mip-and-pmip-00</a></h3>
 
@@ -1521,7 +1615,7 @@ Flow#1 '               *                 | Flow#3
 <p>对于在图6中描述的场景，直接的解决方案是利用所谓的汇聚接入路由器或网关路由器（即在上图标出的接入路由器）实现MR功能。</p>
 
 <p>另一种替代方法是使用<a href="http://tools.ietf.org/html/draft-chan-dmm-framework-gap-analysis-06">I-D.chan-dmm-framework-gap-analysis</a>和<a href="http://tools.ietf.org/html/draft-wakikawa-mext-global-haha-spec-02">I-D.wakikawa-mext-global-haha-spec</a>中所描述的anycast机制。</p>
-</div>
+
   
   
 
@@ -1529,11 +1623,23 @@ Flow#1 '               *                 | Flow#3
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/draft-luo-dmm-with-ipv6-prefix-properties-00/">Draft-luo-dmm-with-ipv6-prefix-properties-00</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/draft-luo-dmm-with-ipv6-prefix-properties-00/">Draft-luo-dmm-with-ipv6-prefix-properties-00</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -1556,7 +1662,7 @@ Flow#1 '               *                 | Flow#3
   </header>
 
 
-  <div class="entry-content"><h1>Distributed Mobility Management Approaches with IPv6 Prefix Properties</h1>
+  <h1>Distributed Mobility Management Approaches with IPv6 Prefix Properties</h1>
 
 <h3><a href="http://tools.ietf.org/html/draft-luo-dmm-with-ipv6-prefix-properties-00">draft-luo-dmm-with-ipv6-prefix-properties-00</a></h3>
 
@@ -1707,7 +1813,7 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
 <p>因此，执行切换之后，既可以通过新的本地IPv6地址（如IP3）也可以通过全局IPv6地址（如IP2）来到达移动节点；如果在eLMA1和eLMA2之间有临时通道，也可以通过前一个本地IPv6地址（如IP1）到达。</p>
 
 <p>是否在eLMA1与eLMA2之间建立临时隧道来维持本地前缀的可达，这取决于网络策略。</p>
-</div>
+
   
   
 
@@ -1715,11 +1821,23 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/draft-liu-dmm-dynamic-anchor-discussion-00/">Draft-liu-dmm-dynamic-anchor-discussion-00</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/draft-liu-dmm-dynamic-anchor-discussion-00/">Draft-liu-dmm-dynamic-anchor-discussion-00</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -1742,7 +1860,7 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
   </header>
 
 
-  <div class="entry-content"><h1>DMM Dynamic Anchor Discussion</h1>
+  <h1>DMM Dynamic Anchor Discussion</h1>
 
 <p><em>给MN配置多个地址</em></p>
 
@@ -1800,7 +1918,7 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
 <li><p>同时还有被hacker利用，消耗网络资源的危险</p></li>
 </ul>
 
-</div>
+
   
   
 
@@ -1808,11 +1926,23 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/draft-liu-dmm-address-selection-01/">Draft-liu-dmm-address-selection-01</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/draft-liu-dmm-address-selection-01/">Draft-liu-dmm-address-selection-01</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -1835,7 +1965,7 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
   </header>
 
 
-  <div class="entry-content"><h1>Address Selection for DMM</h1>
+  <h1>Address Selection for DMM</h1>
 
 <h3><a href="http://tools.ietf.org/html/draft-liu-dmm-address-selection-01">draft-liu-dmm-address-selection-01</a></h3>
 
@@ -1943,7 +2073,7 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
 <h4>MN Handoffs From MAR Back to Its Previous MAR</h4>
 
 <p>上述过程的逆过程。略。</p>
-</div>
+
   
   
 
@@ -1951,11 +2081,23 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
     </article>
   
   
-    <article>
+    <article class="post">
+      <div class="sharing-box">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pengfx.github.io/index.html" data-via="" data-counturl="http://pengfx.github.io/index.html" data-size="large">Tweet</a>
+  
+  
+  
+</div>
+
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/05/06/draft-korhonen-dmm-prefix-properties-03/">Draft-korhonen-dmm-prefix-properties-03</a></h1>
+      <h2 class="entry-title">
+        
+        <a href="/blog/2013/05/06/draft-korhonen-dmm-prefix-properties-03/">Draft-korhonen-dmm-prefix-properties-03</a>
+        
+      </h2>
     
     
       <p class="meta">
@@ -1978,7 +2120,7 @@ Local Prefix |  |   Global Prefix   |  |Local Prefix
   </header>
 
 
-  <div class="entry-content"><h1>IPv6 Prefix Mobility Management Properties</h1>
+  <h1>IPv6 Prefix Mobility Management Properties</h1>
 
 <h3><a href="http://tools.ietf.org/html/draft-korhonen-dmm-prefix-properties-03">draft-korhonen-dmm-prefix-properties-03.txt</a></h3>
 
@@ -2042,75 +2184,24 @@ indicate what kind of source address it prefers:</p>
 <li><p>1 Low preference.</p></li>
 </ul>
 </blockquote>
-</div>
+
   
   
 
 
     </article>
   
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
+
+    <nav role="navigation" id="pagination">
+  <span class="next">
+    <a href="/blog/page/2/" rel="next">Continue &rarr;</a>
+  </span>
+
+
+</nav>
+  </section>
   
-    <section>
-  <ul id="recent_posts">
-      <li class="post">
-      <a href="http://pengfx.github.io" alt="Home"><img src="/images/Home.png"></a>
-      <a href="http://pengfx.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
-      
-      <a href="http://pengfx.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss.png"></a>
-      </li>
-  </ul>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/05/20/ruby-functional-programming/">Ruby 函数式编程</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/06/set-local-octopress-env/">为已托管在github的octopress配置本地环境</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/06/draft-mccann-dmm-flatarch-00/">draft-mccann-dmm-flatarch-00</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/06/draft-ma-dmm-romip-00/">draft-ma-dmm-romip-00</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/06/draft-ma-dmm-armip-00/">draft-ma-dmm-armip-00</a>
-      </li>
-    
-  </ul>
-</section>
 
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Peng Feixiang -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
   
 
 
@@ -2128,7 +2219,6 @@ indicate what kind of source address it prefers:</p>
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
-
 
 
 
