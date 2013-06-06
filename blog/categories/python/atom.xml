@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | My Blog]]></title>
+  <link href="http://pengfx.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://pengfx.github.io/"/>
+  <updated>2013-06-06T14:25:01+08:00</updated>
+  <id>http://pengfx.github.io/</id>
+  <author>
+    <name><![CDATA[Peng Feixiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[pyquery application for zwx]]></title>
+    <link href="http://pengfx.github.io/blog/2013/06/06/pyquery-application-for-zwx/"/>
+    <updated>2013-06-06T13:42:00+08:00</updated>
+    <id>http://pengfx.github.io/blog/2013/06/06/pyquery-application-for-zwx</id>
+    <content type="html"><![CDATA[<p>5000222fbfe25ccbb956
+<div><script src='https://gist.github.com/956.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>
